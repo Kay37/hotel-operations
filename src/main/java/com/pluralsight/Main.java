@@ -12,10 +12,11 @@ public class Main {
         //? Creating a random to allow us to randomly generate.
         Random random = new Random();
 
+        System.out.println("Welcome!");
         boolean menuRunning = true;
         while (menuRunning) {
             System.out.println("""
-                    \nWelcome! Please select an option below: 
+                    \nPlease select an option below: 
                     A) View room information
                     B) Make a reservation
                     C) View employee hours & pay
