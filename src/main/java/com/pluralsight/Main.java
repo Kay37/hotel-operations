@@ -51,7 +51,7 @@ public class Main {
         employees.add(employee2);
         employees.add(employee3);
 
-        System.out.println("Welcome!");
+        System.out.println("Hello!");
         System.out.println("To view the employee action menu, please punch in.");
         Employee currentEmployee = null;
         boolean isCorrectID = false;
@@ -64,6 +64,7 @@ public class Main {
                 if (scEmployeeID == employee.getEmployeeId()) {
                     currentEmployee = employee;
                     System.out.println("Employee ID: " + scEmployeeID + " accepted.");
+                    System.out.println("Welcome back, " + currentEmployee.getName());
                     int hour = LocalTime.now().getHour();
                     employee.punchIn(hour);
                     isCorrectID = true;
