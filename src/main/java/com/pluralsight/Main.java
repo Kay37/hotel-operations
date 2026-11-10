@@ -14,8 +14,6 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         //? Creating a random to allow us to randomly generate.
         Random random = new Random();
-        //? Creating a LocalTime for when employees clock in / out
-        LocalTime now = LocalTime.now();
         //! ROOM CLASS/OBJECT CODE
         //! ------------------------------------------------------------------------------------------------------------
         //? Creating an arraylist to hold a list of my room objects.
@@ -65,8 +63,7 @@ public class Main {
                     currentEmployee = employee;
                     System.out.println("Employee ID: " + scEmployeeID + " accepted.");
                     System.out.println("Welcome back, " + currentEmployee.getName());
-                    int hour = LocalTime.now().getHour();
-                    employee.punchTimeCard(hour);
+                    employee.punchTimeCard();
                     isCorrectID = true;
                 }
             }
@@ -253,8 +250,7 @@ public class Main {
                         punchOutAnswer = sc.nextLine().trim();
                     }
                     if (punchOutAnswer.equalsIgnoreCase("Yes")) {
-                        int hour = LocalTime.now().getHour();
-                        currentEmployee.punchTimeCard(hour);
+                        currentEmployee.punchTimeCard();
                         System.out.printf("%s punched out. Total hours this week: %.1f%n",
                                 currentEmployee.getName(), currentEmployee.getHoursWorked());
                         menuRunning = false;
