@@ -1,6 +1,5 @@
 package com.pluralsight;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -55,7 +54,7 @@ public class Main {
 
         //! HOTEL CLASS/OBJECT CODE
         //! ------------------------------------------------------------------------------------------------------------
-        //? creating our hotel object using the 5-parameter constructor (some rooms already booked)
+        //? Creating our hotel object using the 5-parameter constructor (some rooms already booked)
         Hotel hotel = new Hotel("Tres Leches Inn", 5, 20, 2, 8);
         //! ------------------------------------------------------------------------------------------------------------
         System.out.println("\nHello!");
@@ -308,7 +307,6 @@ public class Main {
                     break;
                 default:
                     System.out.println("Please select a valid option. Refer to the letters on the left. ");
-                    menuRunning = false;
                     break;
             }
         }

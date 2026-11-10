@@ -59,6 +59,10 @@ public class Hotel {
 
     //! method to book one or more rooms, and specify if it is a suite or basic room.
     public boolean bookRoom(int roomCount, boolean suite) {
+        //? A booking needs at least one room (no negative numbers or 0)
+        if (roomCount < 1) {
+            return false;
+        }
         //? if they specify that they want to book suites
         if (suite) {
             //? and it's possible because available suites is at least the total roomCount
