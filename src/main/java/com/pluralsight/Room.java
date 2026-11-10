@@ -44,34 +44,34 @@ public class Room {
         return !dirty && !occupied;
     }
 
-    public void checkIn() {
+    //? Checks a guest in if the room is clean and empty.
+    //? Returns true if it worked, false if the room wasn't available.
+    public boolean checkIn() {
         if (isAvailable()) {
             occupied = true;
             dirty = true;
-            System.out.println("\nChecked in to room " + roomName + ".");
-        } else {
-            System.out.println("\nRoom " + roomName + " isn't available.");
+            return true;
         }
-
+        return false;
     }
 
-    public void checkOut() {
+    //? Checks the guest out. Only works if someone is in the room.
+    //? The room stays dirty until housekeeping cleans it.
+    public boolean checkOut() {
         if (occupied) {
             occupied = false;
-            System.out.println("\nChecked out of room " + roomName + ".");
-        } else {
-            System.out.println("\nRoom " + roomName + " is not occupied.");
+            return true;
         }
-
+        return false;
     }
 
-    public void cleanRoom() {
+    //? Cleans the room. Housekeeping can't clean while a guest is still inside.
+    public boolean cleanRoom() {
         if (!occupied) {
             dirty = false;
-            System.out.println("\nRoom " + roomName + " is cleaned.");
-        } else {
-            System.out.println("\nRoom " + roomName + " is occupied and cannot be cleaned at this time.");
+            return true;
         }
-
+        return false;
     }
+
 }

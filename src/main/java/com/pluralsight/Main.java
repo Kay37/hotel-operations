@@ -41,11 +41,14 @@ public class Main {
         ArrayList<Employee> employees = new ArrayList<>();
         //? Creating 3 employee objects
         Employee employee1 =
-                new Employee(12345, "Mohamed Bilal", "Housekeeping", 50.00, 45);
+                new Employee(12345, "Mohamed Bilal", "Housekeeping",
+                        50.00, 45);
         Employee employee2 =
-                new Employee(12346, "Alina Rashid", "Maintenance", 35.00, 40);
+                new Employee(12346, "Alina Rashid", "Maintenance",
+                        35.00, 40);
         Employee employee3 =
-                new Employee(12347, "Raymond Melly", "Clerk", 25.00, 41);
+                new Employee(12347, "Raymond Melly", "Clerk",
+                        25.00, 41);
         //? Adding our employee objects to our employees ArrayList
         employees.add(employee1);
         employees.add(employee2);
@@ -55,7 +58,8 @@ public class Main {
         //! HOTEL CLASS/OBJECT CODE
         //! ------------------------------------------------------------------------------------------------------------
         //? Creating our hotel object using the 5-parameter constructor (some rooms already booked)
-        Hotel hotel = new Hotel("Tres Leches Inn", 5, 20, 2, 8);
+        Hotel hotel = new Hotel("Tres Leches Inn", 5, 20,
+                2, 8);
         //! ------------------------------------------------------------------------------------------------------------
         System.out.println("\nHello!");
         System.out.println("To view the employee action menu, please punch in.");
@@ -85,7 +89,8 @@ public class Main {
             ArrayList<String> occupiedRooms = new ArrayList<>();
             //? Creating an arraylist to hold a list of room's names that had boolean dirty = true
             ArrayList<String> dirtyRooms = new ArrayList<>();
-            //? Creating an arraylist to hold a list of room's names that had boolean available = true (occupied and dirty = false)
+            //? Creating an arraylist to hold a list of room's names that had
+            //? boolean available = true (occupied and dirty = false)
             ArrayList<String> availableRooms = new ArrayList<>();
 
             System.out.println("""
@@ -108,23 +113,24 @@ public class Main {
                     System.out.printf("%-6s %-5s %-9s %-9s %-6s %-9s%n",
                             "Room", "Beds", "Price", "Occupied", "Dirty", "Available");
                     //? For every room within our rooms ArrayList, retrieve their information with getters and print out
-                    //? (with fixed widths) that information (name, # of beds, price, whether it's occupied, dirty, or available.)
+                    //? (with fixed widths) that information.
+                    //? (name, # of beds, price, whether it's occupied, dirty, or available.)
                     for (Room room : rooms) {
                         System.out.printf("%-6s %-5d $%-8.2f %-9b %-6b %-9b%n",
                                 room.getRoomName(), room.getNumberOfBeds(), room.getPrice(),
                                 room.isOccupied(), room.isDirty(), room.isAvailable());
-                        //? If a room was occupied, we're going to use a getter to retrieve the room's name and add the name to
-                        //? our occupiedRooms ArrayList.
+                        //? If a room was occupied, we're going to use a getter
+                        //? to retrieve the room's name and add the name to our occupiedRooms ArrayList.
                         if (room.isOccupied()) {
                             occupiedRooms.add(room.getRoomName());
                         }
-                        //? If a room was dirty, we're going to use a getter to retrieve the room's name and add the name to
-                        //? our dirtyRooms ArrayList.
+                        //? If a room was dirty, we're going to use a getter to retrieve the room's name
+                        //? and add the name to our dirtyRooms ArrayList.
                         if (room.isDirty()) {
                             dirtyRooms.add(room.getRoomName());
                         }
-                        //? If a room is available (not dirty, not occupied), we're going to retrieve the room's name and add the
-                        //? name to our availableRooms ArrayList.
+                        //? If a room is available (not dirty, not occupied), we're going to
+                        //? retrieve the room's name and add the name to our availableRooms ArrayList.
                         if (room.isAvailable()) {
                             availableRooms.add(room.getRoomName());
                         }
@@ -150,7 +156,8 @@ public class Main {
                     String roomType = sc.nextLine().trim();
                     //? If the answer for the room type is not king or double, we know they gave an invalid input.
                     //? We prompt them again and again while their answer is not the input we want.
-                    while (!roomType.equalsIgnoreCase("king") && !roomType.equalsIgnoreCase("double")) {
+                    while (!roomType.equalsIgnoreCase("king")
+                            && !roomType.equalsIgnoreCase("double")) {
                         System.out.println("Please answer with 'King' or 'Double': ");
                         roomType = sc.nextLine().trim();
                     }
@@ -160,10 +167,12 @@ public class Main {
                     //? Creating number of nights variable for our loop.
                     int numberOfNights = 0;
                     //? While numberOfNights < 1 (so this will run because the line before we set it to 0)
-                    //? Check if the user's input contained an integer. If it did, store that integer as the new value of
-                    //? numberOfNights. If that new value is STILL less than 1, we know they entered 0 or less (negative)
-                    //? The else handles if the user's input does NOT contain an integer. It will prompt them to enter a whole
-                    //? number, this pass through the loop ends, and numberOfNights will still = 0 so it will run the loop again until
+                    //? Check if the user's input contained an integer. If it did, that integer is the new value of
+                    //? numberOfNights. If that new value is STILL less than 1, we know they entered 0 or less.
+                    //? The else handles if the user's input does NOT contain an integer.
+                    //? It will prompt them to enter a whole
+                    //? number, this pass through the loop ends, and numberOfNights will still = 0
+                    //? so it will run the loop again until
                     //? the user's input contains an integer AND that integer is a number of 1 or more.
                     while (numberOfNights < 1) {
                         if (sc.hasNextInt()) {
@@ -174,7 +183,8 @@ public class Main {
                         } else {
                             System.out.println("Please enter a whole number (e.g. 5): ");
                         }
-                        //? This line absorbs the user's bad answer and throws it away (we do not store it in a variable).
+                        //? This line absorbs the user's bad answer and throws it away
+                        //? (we do not store it in a variable).
                         //? Without this line if they typed abc it would run the else statement and loop forever.
                         //? After a GOOD answer, it clears the leftover Enter from the input buffer.
                         sc.nextLine();
@@ -185,18 +195,24 @@ public class Main {
                     String weekendAnswer = sc.nextLine().trim();
                     //? While their answer is not yes or no, we know they gave an invalid input. We will continually
                     //? prompt them to answer within our desired format.
-                    while (!weekendAnswer.equalsIgnoreCase("yes") && !weekendAnswer.equalsIgnoreCase("no")) {
+                    while (!weekendAnswer.equalsIgnoreCase("yes")
+                            && !weekendAnswer.equalsIgnoreCase("no")) {
                         System.out.println("Please answer with 'Yes' or 'No': ");
                         weekendAnswer = sc.nextLine().trim();
                     }
                     //? Creating our weekend boolean if the user's input is yes.
                     boolean weekend = weekendAnswer.equalsIgnoreCase("yes");
-                    //? Using the user's input and stored answers to create a new reservation object from the Reservation class
+                    //? Using the user's input and stored answers to create a new reservation object
+                    //? from the Reservation class
                     Reservation reservation = new Reservation(roomType, numberOfNights, weekend);
-                    //? Printing out that new reservation object's type, number of nights, and if the reservation has a weekend charge.
-                    System.out.printf("%n%s room, %d nights, weekend: %b%n", reservation.getRoomType(), reservation.getNumberOfNights(), reservation.isWeekend());
-                    //? Printing out the price per night (based on room type, plus 10% on weekends) and the total (price per night × nights)
-                    System.out.printf("Price per night: $%.2f   Total: $%.2f%n", reservation.getPrice(), reservation.getReservationTotal());
+                    //? Printing out that new reservation object's type, number of nights, and if
+                    //? the reservation has a weekend charge.
+                    System.out.printf("%n%s room, %d nights, weekend: %b%n", reservation.getRoomType(),
+                            reservation.getNumberOfNights(), reservation.isWeekend());
+                    //? Printing out the price per night (based on room type, plus 10% on weekends)
+                    //? and the total (price per night × nights)
+                    System.out.printf("Price per night: $%.2f   Total: $%.2f%n", reservation.getPrice(),
+                            reservation.getReservationTotal());
                     break;
                 case "c":
 
@@ -208,8 +224,8 @@ public class Main {
                             //? Printing out a header for employee information
                             System.out.printf("%-6s %-15s %-14s %-9s %-8s %-9s %s%n",
                                     "ID", "Name", "Department", "Rate", "Regular", "Overtime", "Total Pay");
-                            //? For every employee within the employees ArrayList, retrieve their information with our getters
-                            //? from Employee.java and print it formatted, and with fixed widths.
+                            //? For every employee within the employees ArrayList, retrieve their information
+                            //? with our getters from Employee.java and print it formatted, and with fixed widths.
                             for (Employee employee : employees) {
                                 System.out.printf("%-6d %-15s %-14s $%-8.2f %-8.1f %-9.1f $%.2f%n",
                                         employee.getEmployeeId(), employee.getName(), employee.getDepartment(),
@@ -230,7 +246,13 @@ public class Main {
                     String roomNumber = sc.nextLine().trim();
                     for (Room room : rooms) {
                         if (room.getRoomName().equals(roomNumber)) {
-                            room.checkIn();
+                            //? checkIn() runs & tries to check the guest in. Then the if looks at what it handed back.
+                            //? true takes the first branch, and false takes the else.
+                            if (room.checkIn()) {
+                                System.out.println("\nChecked in to room " + roomNumber + ".");
+                            } else {
+                                System.out.println("\nRoom " + roomNumber + " isn't available.");
+                            }
                         }
                     }
                     break;
@@ -239,7 +261,11 @@ public class Main {
                     roomNumber = sc.nextLine().trim();
                     for (Room room : rooms) {
                         if (room.getRoomName().equals(roomNumber)) {
-                            room.checkOut();
+                            if (room.checkOut()) {
+                                System.out.println("\nChecked out of room " + roomNumber + ".");
+                            } else {
+                                System.out.println("\nRoom " + roomNumber + " is not occupied.");
+                            }
                         }
                     }
                     break;
@@ -248,20 +274,28 @@ public class Main {
                     roomNumber = sc.nextLine().trim();
                     for (Room room : rooms) {
                         if (room.getRoomName().equals(roomNumber)) {
-                            room.cleanRoom();
+                            if (room.cleanRoom()) {
+                                System.out.println("\nRoom " + roomNumber + " is cleaned.");
+                            } else {
+                                System.out.println("\nRoom " + roomNumber +
+                                        " is occupied and cannot be cleaned at this time.");
+                            }
                         }
                     }
                     break;
                 case "g":
                     //? Printing out the hotel's name and how many suites / basic rooms are available
                     System.out.printf("%n%s%n", hotel.getName());
-                    System.out.printf("Suites: %d of %d available%n", hotel.getAvailableSuites(), hotel.getNumberOfSuites());
-                    System.out.printf("Basic rooms: %d of %d available%n", hotel.getAvailableRooms(), hotel.getNumberOfRooms());
+                    System.out.printf("Suites: %d of %d available%n", hotel.getAvailableSuites(),
+                            hotel.getNumberOfSuites());
+                    System.out.printf("Basic rooms: %d of %d available%n", hotel.getAvailableRooms(),
+                            hotel.getNumberOfRooms());
                     break;
                 case "h":
                     System.out.println("Would you like to book a suite or basic room? (e.g. 'Suite' or 'Basic')");
                     String hotelRoomChoice = sc.nextLine().trim();
-                    while (!hotelRoomChoice.equalsIgnoreCase("suite") && !hotelRoomChoice.equalsIgnoreCase("basic")) {
+                    while (!hotelRoomChoice.equalsIgnoreCase("suite")
+                            && !hotelRoomChoice.equalsIgnoreCase("basic")) {
                         System.out.println("Please answer with 'Suite' or 'Basic': ");
                         hotelRoomChoice = sc.nextLine().trim();
                     }
@@ -294,7 +328,8 @@ public class Main {
                 case "x":
                     System.out.println("Are you sure you want to punch out and end your shift? (Yes or No): ");
                     String punchOutAnswer = sc.nextLine().trim();
-                    while (!punchOutAnswer.equalsIgnoreCase("yes") && !punchOutAnswer.equalsIgnoreCase("no")) {
+                    while (!punchOutAnswer.equalsIgnoreCase("yes")
+                            && !punchOutAnswer.equalsIgnoreCase("no")) {
                         System.out.println("Please answer with 'Yes' or 'No': ");
                         punchOutAnswer = sc.nextLine().trim();
                     }
