@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -7,25 +8,71 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        //! TOOLS WE NEED
+        //! ------------------------------------------------------------------------------------------------------------
         //? Creating scanner to receive user input
         Scanner sc = new Scanner(System.in);
         //? Creating a random to allow us to randomly generate.
         Random random = new Random();
-
+        //? Creating a LocalTime for when employees clock in / out
+        LocalTime now = LocalTime.now();
+        //! ROOM CLASS/OBJECT CODE
+        //! ------------------------------------------------------------------------------------------------------------
         //? Creating an arraylist to hold a list of my room objects.
         ArrayList<Room> rooms = new ArrayList<>();
         //? Creating four new room objects with public constructor.
-        Room room1 = new Room("100", 2, 129.99, random.nextBoolean(), random.nextBoolean());
-        Room room2 = new Room("101", 2, 129.99, random.nextBoolean(), random.nextBoolean());
-        Room room3 = new Room("102", 2, 129.99, random.nextBoolean(), random.nextBoolean());
-        Room room4 = new Room("103", 1, 64.99, random.nextBoolean(), random.nextBoolean());
+        Room room1 =
+                new Room("100", 2, 129.99, random.nextBoolean(), random.nextBoolean());
+        Room room2 =
+                new Room("101", 2, 129.99, random.nextBoolean(), random.nextBoolean());
+        Room room3 =
+                new Room("102", 2, 129.99, random.nextBoolean(), random.nextBoolean());
+        Room room4 =
+                new Room("103", 1, 64.99, random.nextBoolean(), random.nextBoolean());
         //? Adding these four new room objects to our rooms ArrayList.
         rooms.add(room1);
         rooms.add(room2);
         rooms.add(room3);
         rooms.add(room4);
 
+        //! EMPLOYEE CLASS/OBJECT CODE
+        //! ------------------------------------------------------------------------------------------------------------
+        //? Creating an ArrayList to store employee objects
+        ArrayList<Employee> employees = new ArrayList<>();
+        //? Creating 3 employee objects
+        Employee employee1 =
+                new Employee(12345, "Mohamed Bilal", "Housekeeping", 50.00, 45);
+        Employee employee2 =
+                new Employee(12346, "Alina Rashid", "Maintenance", 35.00, 40);
+        Employee employee3 =
+                new Employee(12347, "Raymond Melly", "Clerk", 25.00, 41);
+        //? Adding our employee objects to our employees ArrayList
+        employees.add(employee1);
+        employees.add(employee2);
+        employees.add(employee3);
+
         System.out.println("Welcome!");
+        System.out.println("To view the employee action menu, please punch in.");
+        Employee currentEmployee = null;
+        boolean isCorrectID = false;
+        while (!isCorrectID) {
+            System.out.print("\nEmployee ID: ");
+            int scEmployeeID = sc.nextInt();
+            sc.nextLine();
+
+            for (Employee employee : employees) {
+                if (scEmployeeID == employee.getEmployeeId()) {
+                    currentEmployee = employee;
+                    System.out.println("Employee ID: " + scEmployeeID + " accepted.");
+                    int hour = LocalTime.now().getHour();
+                    employee.punchIn(hour);
+                    isCorrectID = true;
+                }
+            }
+            if (!isCorrectID) {
+                System.out.println("Employee ID: " + scEmployeeID + " rejected. Try again.");
+            }
+        }
         boolean menuRunning = true;
         while (menuRunning) {
             //? Creating an arraylist to hold a list of room's names that had boolean occupied = true
@@ -43,6 +90,7 @@ public class Main {
                     D) Check into a room
                     E) Check out of a room
                     F) Clean a room
+                    X) Punch out
                     """);
             String userChoice = sc.nextLine().toLowerCase();
             switch (userChoice) {
@@ -143,26 +191,30 @@ public class Main {
                     System.out.printf("Price per night: $%.2f   Total: $%.2f%n", reservation.getPrice(), reservation.getReservationTotal());
                     break;
                 case "c":
-                    //? Creating an ArrayList to store employee objects
-                    ArrayList<Employee> employees = new ArrayList<>();
-                    //? Creating 3 employee objects
-                    Employee employee1 = new Employee(12345, "Mohamed Bilal", "Housekeeping", 50.00, 45);
-                    Employee employee2 = new Employee(12346, "Alina Rashid", "Maintenance", 35.00, 40);
-                    Employee employee3 = new Employee(12347, "Raymond Melly", "Clerk", 25.00, 41);
-                    //? Adding our employee objects to our employees ArrayList
-                    employees.add(employee1);
-                    employees.add(employee2);
-                    employees.add(employee3);
-                    //? Printing out a header for employee information
-                    System.out.printf("%-6s %-15s %-14s %-9s %-8s %-9s %s%n",
-                            "ID", "Name", "Department", "Rate", "Regular", "Overtime", "Total Pay");
-                    //? For every employee within the employees ArrayList, retrieve their information with our getters
-                    //? from Employee.java and print it formatted, and with fixed widths.
-                    for (Employee employee : employees) {
-                        System.out.printf("%-6d %-15s %-14s $%-8.2f %-8.1f %-9.1f $%.2f%n",
-                                employee.getEmployeeId(), employee.getName(), employee.getDepartment(),
-                                employee.getPayRate(), employee.getRegularHours(), employee.getOvertimeHours(),
-                                employee.getTotalPay());
+
+                    System.out.print("\nPlease enter the password to view sensitive employee information: ");
+                    String passwordAttempt = sc.nextLine().trim();
+                    boolean passwordCorrect = false;
+                    while (!passwordCorrect) {
+                        if (passwordAttempt.equals("TresLeches123")) {
+                            //? Printing out a header for employee information
+                            System.out.printf("%-6s %-15s %-14s %-9s %-8s %-9s %s%n",
+                                    "ID", "Name", "Department", "Rate", "Regular", "Overtime", "Total Pay");
+                            //? For every employee within the employees ArrayList, retrieve their information with our getters
+                            //? from Employee.java and print it formatted, and with fixed widths.
+                            for (Employee employee : employees) {
+                                System.out.printf("%-6d %-15s %-14s $%-8.2f %-8.1f %-9.1f $%.2f%n",
+                                        employee.getEmployeeId(), employee.getName(), employee.getDepartment(),
+                                        employee.getPayRate(), employee.getRegularHours(), employee.getOvertimeHours(),
+                                        employee.getTotalPay());
+                            }
+                            passwordCorrect = true;
+                        } else {
+                            while (!passwordAttempt.equalsIgnoreCase("TresLeches123")) {
+                                System.out.println("Please enter the correct password: ");
+                                passwordAttempt = sc.nextLine().trim();
+                            }
+                        }
                     }
                     break;
                 case "d":
@@ -190,6 +242,21 @@ public class Main {
                         if (room.getRoomName().equals(roomNumber)) {
                             room.cleanRoom();
                         }
+                    }
+                    break;
+                case "x":
+                    System.out.println("Are you sure you want to punch out and end your shift? (Yes or No): ");
+                    String punchOutAnswer = sc.nextLine().trim();
+                    while (!punchOutAnswer.equalsIgnoreCase("yes") && !punchOutAnswer.equalsIgnoreCase("no")) {
+                        System.out.println("Please answer with 'Yes' or 'No': ");
+                        punchOutAnswer = sc.nextLine().trim();
+                    }
+                    if (punchOutAnswer.equalsIgnoreCase("Yes")) {
+                        int hour = LocalTime.now().getHour();
+                        currentEmployee.punchOut(hour);
+                        System.out.printf("%s punched out. Total hours this week: %.1f%n",
+                                currentEmployee.getName(), currentEmployee.getHoursWorked());
+                        menuRunning = false;
                     }
                     break;
                 default:
