@@ -67,7 +67,7 @@ public class Room {
 
     public void cleanRoom() {
         if (!occupied) {
-            dirty =  false;
+            dirty = false;
             System.out.println("\nRoom " + roomName + " is cleaned.");
         } else {
             System.out.println("\nRoom " + roomName + " is occupied and cannot be cleaned at this time.");

@@ -51,7 +51,7 @@ public class Main {
         employees.add(employee2);
         employees.add(employee3);
 
-        System.out.println("Hello!");
+        System.out.println("\nHello!");
         System.out.println("To view the employee action menu, please punch in.");
         Employee currentEmployee = null;
         boolean isCorrectID = false;
