@@ -12,37 +12,41 @@ public class Main {
         //? Creating a random to allow us to randomly generate.
         Random random = new Random();
 
+        //? Creating an arraylist to hold a list of my room objects.
+        ArrayList<Room> rooms = new ArrayList<>();
+        //? Creating four new room objects with public constructor.
+        Room room1 = new Room("100", 2, 129.99, random.nextBoolean(), random.nextBoolean());
+        Room room2 = new Room("101", 2, 129.99, random.nextBoolean(), random.nextBoolean());
+        Room room3 = new Room("102", 2, 129.99, random.nextBoolean(), random.nextBoolean());
+        Room room4 = new Room("103", 1, 64.99, random.nextBoolean(), random.nextBoolean());
+        //? Adding these four new room objects to our rooms ArrayList.
+        rooms.add(room1);
+        rooms.add(room2);
+        rooms.add(room3);
+        rooms.add(room4);
+
         System.out.println("Welcome!");
         boolean menuRunning = true;
         while (menuRunning) {
+            //? Creating an arraylist to hold a list of room's names that had boolean occupied = true
+            ArrayList<String> occupiedRooms = new ArrayList<>();
+            //? Creating an arraylist to hold a list of room's names that had boolean dirty = true
+            ArrayList<String> dirtyRooms = new ArrayList<>();
+            //? Creating an arraylist to hold a list of room's names that had boolean available = true (occupied and dirty = false)
+            ArrayList<String> availableRooms = new ArrayList<>();
+
             System.out.println("""
                     \nPlease select an option below: 
                     A) View room information
                     B) Make a reservation
                     C) View employee hours & pay
+                    D) Check into a room
+                    E) Check out of a room
+                    F) Clean a room
                     """);
             String userChoice = sc.nextLine().toLowerCase();
             switch (userChoice) {
                 case "a":
-                    //? Creating an arraylist to hold a list of my room objects.
-                    ArrayList<Room> rooms = new ArrayList<>();
-                    //? Creating an arraylist to hold a list of room's names that had boolean occupied = true
-                    ArrayList<String> occupiedRooms = new ArrayList<>();
-                    //? Creating an arraylist to hold a list of room's names that had boolean dirty = true
-                    ArrayList<String> dirtyRooms = new ArrayList<>();
-                    //? Creating an arraylist to hold a list of room's names that had boolean available = true (occupied and dirty = false)
-                    ArrayList<String> availableRooms = new ArrayList<>();
-                    //? Creating four new room objects with public constructor.
-                    Room room1 = new Room("100", 2, 129.99, random.nextBoolean(), random.nextBoolean());
-                    Room room2 = new Room("101", 2, 129.99, random.nextBoolean(), random.nextBoolean());
-                    Room room3 = new Room("102", 2, 129.99, random.nextBoolean(), random.nextBoolean());
-                    Room room4 = new Room("103", 1, 64.99, random.nextBoolean(), random.nextBoolean());
-                    //? Adding these four new room objects to our rooms ArrayList.
-                    rooms.add(room1);
-                    rooms.add(room2);
-                    rooms.add(room3);
-                    rooms.add(room4);
-
                     //? Printing out a header with fixed widths to the user displaying stored information for the traits
                     //? of the room objects in our ArrayList.
                     System.out.printf("%-6s %-5s %-9s %-9s %-6s %-9s%n",
@@ -159,6 +163,33 @@ public class Main {
                                 employee.getEmployeeId(), employee.getName(), employee.getDepartment(),
                                 employee.getPayRate(), employee.getRegularHours(), employee.getOvertimeHours(),
                                 employee.getTotalPay());
+                    }
+                    break;
+                case "d":
+                    System.out.print("\nPlease enter the room number to check in (e.g. 100): ");
+                    String roomNumber = sc.nextLine().trim();
+                    for (Room room : rooms) {
+                        if (room.getRoomName().equals(roomNumber)) {
+                            room.checkIn();
+                        }
+                    }
+                    break;
+                case "e":
+                    System.out.print("\nPlease enter the room number to check out (e.g. 100): ");
+                    roomNumber = sc.nextLine().trim();
+                    for (Room room : rooms) {
+                        if (room.getRoomName().equals(roomNumber)) {
+                            room.checkOut();
+                        }
+                    }
+                    break;
+                case "f":
+                    System.out.print("\nPlease enter the room number to clean (e.g. 100): ");
+                    roomNumber = sc.nextLine().trim();
+                    for (Room room : rooms) {
+                        if (room.getRoomName().equals(roomNumber)) {
+                            room.cleanRoom();
+                        }
                     }
                     break;
                 default:

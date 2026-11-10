@@ -49,7 +49,18 @@ public class Employee {
         }
         return 0;
     }
+
     public double getTotalPay() {
         return getRegularHours() * payRate + getOvertimeHours() * (payRate * 1.5);
     }
+
+    public void punchIn() {
+
+    }
+
+    public void punchOut() {
+
+    }
+
+
 }
