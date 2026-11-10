@@ -66,7 +66,7 @@ public class Main {
                     System.out.println("Employee ID: " + scEmployeeID + " accepted.");
                     System.out.println("Welcome back, " + currentEmployee.getName());
                     int hour = LocalTime.now().getHour();
-                    employee.punchIn(hour);
+                    employee.punchTimeCard(hour);
                     isCorrectID = true;
                 }
             }
@@ -254,7 +254,7 @@ public class Main {
                     }
                     if (punchOutAnswer.equalsIgnoreCase("Yes")) {
                         int hour = LocalTime.now().getHour();
-                        currentEmployee.punchOut(hour);
+                        currentEmployee.punchTimeCard(hour);
                         System.out.printf("%s punched out. Total hours this week: %.1f%n",
                                 currentEmployee.getName(), currentEmployee.getHoursWorked());
                         menuRunning = false;
