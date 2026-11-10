@@ -14,6 +14,8 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         //? Creating a random to allow us to randomly generate.
         Random random = new Random();
+        //! ------------------------------------------------------------------------------------------------------------
+
         //! ROOM CLASS/OBJECT CODE
         //! ------------------------------------------------------------------------------------------------------------
         //? Creating an arraylist to hold a list of my room objects.
@@ -32,6 +34,7 @@ public class Main {
         rooms.add(room2);
         rooms.add(room3);
         rooms.add(room4);
+        //! ------------------------------------------------------------------------------------------------------------
 
         //! EMPLOYEE CLASS/OBJECT CODE
         //! ------------------------------------------------------------------------------------------------------------
@@ -48,7 +51,13 @@ public class Main {
         employees.add(employee1);
         employees.add(employee2);
         employees.add(employee3);
+        //! ------------------------------------------------------------------------------------------------------------
 
+        //! HOTEL CLASS/OBJECT CODE
+        //! ------------------------------------------------------------------------------------------------------------
+        //? creating our hotel object using the 5-parameter constructor (some rooms already booked)
+        Hotel hotel = new Hotel("Tres Leches Inn", 5, 20, 2, 8);
+        //! ------------------------------------------------------------------------------------------------------------
         System.out.println("\nHello!");
         System.out.println("To view the employee action menu, please punch in.");
         Employee currentEmployee = null;
@@ -88,6 +97,8 @@ public class Main {
                     D) Check into a room
                     E) Check out of a room
                     F) Clean a room
+                    G) View hotel information
+                    H) Book hotel rooms
                     X) Punch out
                     """);
             String userChoice = sc.nextLine().toLowerCase();
@@ -240,6 +251,45 @@ public class Main {
                         if (room.getRoomName().equals(roomNumber)) {
                             room.cleanRoom();
                         }
+                    }
+                    break;
+                case "g":
+                    //? Printing out the hotel's name and how many suites / basic rooms are available
+                    System.out.printf("%n%s%n", hotel.getName());
+                    System.out.printf("Suites: %d of %d available%n", hotel.getAvailableSuites(), hotel.getNumberOfSuites());
+                    System.out.printf("Basic rooms: %d of %d available%n", hotel.getAvailableRooms(), hotel.getNumberOfRooms());
+                    break;
+                case "h":
+                    System.out.println("Would you like to book a suite or basic room? (e.g. 'Suite' or 'Basic')");
+                    String hotelRoomChoice = sc.nextLine().trim();
+                    while (!hotelRoomChoice.equalsIgnoreCase("suite") && !hotelRoomChoice.equalsIgnoreCase("basic")) {
+                        System.out.println("Please answer with 'Suite' or 'Basic': ");
+                        hotelRoomChoice = sc.nextLine().trim();
+                    }
+                    boolean suite = hotelRoomChoice.equalsIgnoreCase("suite");
+                    System.out.println("How many rooms would you like to book? (e.g. 2): ");
+                    int roomCount = 0;
+                    while (roomCount < 1) {
+                        if (sc.hasNextInt()) {
+                            roomCount = sc.nextInt();
+                            if (roomCount < 1) {
+                                System.out.println("Please enter a number of 1 or more (e.g. 2): ");
+                            }
+                        } else {
+                            System.out.println("Please enter a whole number (e.g. 2): ");
+                        }
+                        sc.nextLine();
+                    }
+                    if (hotel.bookRoom(roomCount, suite)) {
+                        String roomWord;
+                        if (suite) {
+                            roomWord = " suite(s).";
+                        } else {
+                            roomWord = " basic room(s).";
+                        }
+                        System.out.println("Booked " + roomCount + roomWord);
+                    } else {
+                        System.out.println("Sorry, not enough rooms available for that booking.");
                     }
                     break;
                 case "x":
