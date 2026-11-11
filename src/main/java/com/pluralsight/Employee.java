@@ -24,6 +24,8 @@ public class Employee {
         this.department = department;
         this.payRate = payRate;
         this.hoursWorked = hoursWorked;
+        this.startTime = 0;
+        this.punchedIn = false;
     }
 
     //! our plain getters

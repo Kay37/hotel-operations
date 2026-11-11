@@ -15,7 +15,7 @@ class ReservationTest {
         double price =  testReservation.getPrice();
 
         //* Assert
-        assertEquals(139, price);
+        assertEquals(139, price, 0.001);
     }
 
     @Test
@@ -27,11 +27,11 @@ class ReservationTest {
         double price =  testReservation.getPrice();
 
         //* Assert
-        assertEquals(152.9, price);
+        assertEquals(152.9, price, 0.001);
     }
 
     @Test
-    public void getReservationTotal_should_be_accurate_for_king_room_type_with_no_weekend_three_nights(){
+    public void getReservationTotal_should_be_accurate_for_king_room_type_with_weekend_three_nights(){
         //* Arrange
         Reservation testReservation = new Reservation("king", 3, true);
 
@@ -39,7 +39,7 @@ class ReservationTest {
         double total =  testReservation.getReservationTotal();
 
         //* Assert
-        assertEquals(458, total, 0.8);
+        assertEquals(458.7, total, 0.001);
     }
 
 }

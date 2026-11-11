@@ -9,7 +9,7 @@ class EmployeeTest {
     //! punchIn() tests
     //! ----------------------------------------------------------------------------------------------------------------
     @Test
-    public void punchIn_fourHourShift_should_addFourHours() {
+    public void punchOut_fourHourShift_should_addFourHours() {
         //* Arrange
         Employee employee = new Employee(12347, "Raymond Melly",
                 "Clerk", 25.00, 41);
