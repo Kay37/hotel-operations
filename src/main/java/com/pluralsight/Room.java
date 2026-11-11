@@ -67,7 +67,7 @@ public class Room {
 
     //? Cleans the room. Housekeeping can't clean while a guest is still inside.
     public boolean cleanRoom() {
-        if (!occupied) {
+        if (!occupied && dirty) {
             dirty = false;
             return true;
         }
