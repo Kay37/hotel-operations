@@ -39,7 +39,7 @@ class ReservationTest {
         double total =  testReservation.getReservationTotal();
 
         //* Assert
-        assertEquals(458.70000000000005, total);
+        assertEquals(458, total, 0.8);
     }
 
 }

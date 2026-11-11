@@ -234,7 +234,7 @@ public class Main {
                         System.out.println("\nRoom " + roomNumber + " is cleaned.");
                     } else {
                         System.out.println("\nRoom " + roomNumber +
-                                " is occupied or already clean cannot be cleaned at this time.");
+                                " is occupied or already clean and cannot be cleaned at this time.");
                     }
                     break;
                 case "g":

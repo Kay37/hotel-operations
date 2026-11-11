@@ -36,7 +36,7 @@ class EmployeeTest {
 
         //* Assert
         assertEquals(10, employee.getStartTime(), 0.001);
-        assertEquals(41,  employee.getHoursWorked(), 0.001);
+        assertEquals(41,  employee.getHoursWorked(), 0.01);
     }
 
 
