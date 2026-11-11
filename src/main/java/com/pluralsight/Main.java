@@ -2,15 +2,13 @@ package com.pluralsight;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         //! TOOLS WE NEED
         //! ------------------------------------------------------------------------------------------------------------
-        //? Creating scanner to receive user input
-        Scanner sc = new Scanner(System.in);
+
         //? Creating a random to allow us to randomly generate.
         Random random = new Random();
         //! ------------------------------------------------------------------------------------------------------------
@@ -66,9 +64,7 @@ public class Main {
         Employee currentEmployee = null;
         boolean isCorrectID = false;
         while (!isCorrectID) {
-            System.out.print("\nEmployee ID: ");
-            int scEmployeeID = sc.nextInt();
-            sc.nextLine();
+            int scEmployeeID = InputToolbox.promptInt("\nEmployee ID: ");
 
             for (Employee employee : employees) {
                 if (scEmployeeID == employee.getEmployeeId()) {
@@ -94,7 +90,7 @@ public class Main {
             ArrayList<String> availableRooms = new ArrayList<>();
 
             System.out.println("""
-                    \nPlease select an option below: 
+                    \nPlease select an option below:
                     A) View room information
                     B) Make a reservation
                     C) View employee hours & pay
@@ -105,7 +101,7 @@ public class Main {
                     H) Book hotel rooms
                     X) Punch out
                     """);
-            String userChoice = sc.nextLine().toLowerCase();
+            String userChoice = InputToolbox.promptString("").toLowerCase();
             switch (userChoice) {
                 case "a":
                     //? Printing out a header with fixed widths to the user displaying stored information for the traits
@@ -148,60 +144,17 @@ public class Main {
                 case "b":
                     //? What room type?
                     System.out.println("""
-                            Please choose a room type:
                             King - (King sized bed)
-                            Double - (Double sized bed)
-                            Answer with "King" or "Double"
-                            """);
-                    String roomType = sc.nextLine().trim();
-                    //? If the answer for the room type is not king or double, we know they gave an invalid input.
-                    //? We prompt them again and again while their answer is not the input we want.
-                    while (!roomType.equalsIgnoreCase("king")
-                            && !roomType.equalsIgnoreCase("double")) {
-                        System.out.println("Please answer with 'King' or 'Double': ");
-                        roomType = sc.nextLine().trim();
-                    }
+                            Double - (Double sized bed)""");
+                    String roomType = InputToolbox.promptChoice("Please choose a room type",
+                            "king", "double");
 
                     //? How many nights will they want their reservation to be for?
-                    System.out.println("Please enter the number of nights you would like to reserve for (e.g. 5): ");
-                    //? Creating number of nights variable for our loop.
-                    int numberOfNights = 0;
-                    //? While numberOfNights < 1 (so this will run because the line before we set it to 0)
-                    //? Check if the user's input contained an integer. If it did, that integer is the new value of
-                    //? numberOfNights. If that new value is STILL less than 1, we know they entered 0 or less.
-                    //? The else handles if the user's input does NOT contain an integer.
-                    //? It will prompt them to enter a whole
-                    //? number, this pass through the loop ends, and numberOfNights will still = 0
-                    //? so it will run the loop again until
-                    //? the user's input contains an integer AND that integer is a number of 1 or more.
-                    while (numberOfNights < 1) {
-                        if (sc.hasNextInt()) {
-                            numberOfNights = sc.nextInt();
-                            if (numberOfNights < 1) {
-                                System.out.println("Please enter a number of 1 or more (e.g. 5): ");
-                            }
-                        } else {
-                            System.out.println("Please enter a whole number (e.g. 5): ");
-                        }
-                        //? This line absorbs the user's bad answer and throws it away
-                        //? (we do not store it in a variable).
-                        //? Without this line if they typed abc it would run the else statement and loop forever.
-                        //? After a GOOD answer, it clears the leftover Enter from the input buffer.
-                        sc.nextLine();
-                    }
+                    int numberOfNights = InputToolbox.promptInt(
+                            "Please enter the number of nights you would like to reserve for (e.g. 5): ",
+                            1);
                     //? Will there be a weekend charge? (This question is why the user should be the clerk)
-                    System.out.println("Are you reserving days during a weekend? (e.g. 'Yes' or 'No'): ");
-                    //? Storing their answer as a String and converting this String to a boolean later
-                    String weekendAnswer = sc.nextLine().trim();
-                    //? While their answer is not yes or no, we know they gave an invalid input. We will continually
-                    //? prompt them to answer within our desired format.
-                    while (!weekendAnswer.equalsIgnoreCase("yes")
-                            && !weekendAnswer.equalsIgnoreCase("no")) {
-                        System.out.println("Please answer with 'Yes' or 'No': ");
-                        weekendAnswer = sc.nextLine().trim();
-                    }
-                    //? Creating our weekend boolean if the user's input is yes.
-                    boolean weekend = weekendAnswer.equalsIgnoreCase("yes");
+                    boolean weekend = InputToolbox.promptYesNo("Are you reserving days during a weekend?");
                     //? Using the user's input and stored answers to create a new reservation object
                     //? from the Reservation class
                     Reservation reservation = new Reservation(roomType, numberOfNights, weekend);
@@ -216,8 +169,8 @@ public class Main {
                     break;
                 case "c":
 
-                    System.out.print("\nPlease enter the password to view sensitive employee information: ");
-                    String passwordAttempt = sc.nextLine().trim();
+                    String passwordAttempt = InputToolbox.promptString(
+                            "\nPlease enter the password to view sensitive employee information: ");
                     boolean passwordCorrect = false;
                     while (!passwordCorrect) {
                         if (passwordAttempt.equals("TresLeches123")) {
@@ -235,15 +188,15 @@ public class Main {
                             passwordCorrect = true;
                         } else {
                             while (!passwordAttempt.equalsIgnoreCase("TresLeches123")) {
-                                System.out.println("Please enter the correct password: ");
-                                passwordAttempt = sc.nextLine().trim();
+                                passwordAttempt = InputToolbox.promptString(
+                                        "Please enter the correct password: ");
                             }
                         }
                     }
                     break;
                 case "d":
-                    System.out.print("\nPlease enter the room number to check in (e.g. 100): ");
-                    String roomNumber = sc.nextLine().trim();
+                    String roomNumber = InputToolbox.promptString(
+                            "\nPlease enter the room number to check in (e.g. 100): ");
                     for (Room room : rooms) {
                         if (room.getRoomName().equals(roomNumber)) {
                             //? checkIn() runs & tries to check the guest in. Then the if looks at what it handed back.
@@ -257,8 +210,8 @@ public class Main {
                     }
                     break;
                 case "e":
-                    System.out.print("\nPlease enter the room number to check out (e.g. 100): ");
-                    roomNumber = sc.nextLine().trim();
+                    roomNumber = InputToolbox.promptString(
+                            "\nPlease enter the room number to check out (e.g. 100): ");
                     for (Room room : rooms) {
                         if (room.getRoomName().equals(roomNumber)) {
                             if (room.checkOut()) {
@@ -270,8 +223,8 @@ public class Main {
                     }
                     break;
                 case "f":
-                    System.out.print("\nPlease enter the room number to clean (e.g. 100): ");
-                    roomNumber = sc.nextLine().trim();
+                    roomNumber = InputToolbox.promptString(
+                            "\nPlease enter the room number to clean (e.g. 100): ");
                     for (Room room : rooms) {
                         if (room.getRoomName().equals(roomNumber)) {
                             if (room.cleanRoom()) {
@@ -292,27 +245,11 @@ public class Main {
                             hotel.getNumberOfRooms());
                     break;
                 case "h":
-                    System.out.println("Would you like to book a suite or basic room? (e.g. 'Suite' or 'Basic')");
-                    String hotelRoomChoice = sc.nextLine().trim();
-                    while (!hotelRoomChoice.equalsIgnoreCase("suite")
-                            && !hotelRoomChoice.equalsIgnoreCase("basic")) {
-                        System.out.println("Please answer with 'Suite' or 'Basic': ");
-                        hotelRoomChoice = sc.nextLine().trim();
-                    }
-                    boolean suite = hotelRoomChoice.equalsIgnoreCase("suite");
-                    System.out.println("How many rooms would you like to book? (e.g. 2): ");
-                    int roomCount = 0;
-                    while (roomCount < 1) {
-                        if (sc.hasNextInt()) {
-                            roomCount = sc.nextInt();
-                            if (roomCount < 1) {
-                                System.out.println("Please enter a number of 1 or more (e.g. 2): ");
-                            }
-                        } else {
-                            System.out.println("Please enter a whole number (e.g. 2): ");
-                        }
-                        sc.nextLine();
-                    }
+                    String hotelRoomChoice = InputToolbox.promptChoice(
+                            "Would you like to book a suite or basic room?", "suite", "basic");
+                    boolean suite = hotelRoomChoice.equals("suite");
+                    int roomCount = InputToolbox.promptInt(
+                            "How many rooms would you like to book? (e.g. 2): ", 1);
                     if (hotel.bookRoom(roomCount, suite)) {
                         String roomWord;
                         if (suite) {
@@ -326,14 +263,7 @@ public class Main {
                     }
                     break;
                 case "x":
-                    System.out.println("Are you sure you want to punch out and end your shift? (Yes or No): ");
-                    String punchOutAnswer = sc.nextLine().trim();
-                    while (!punchOutAnswer.equalsIgnoreCase("yes")
-                            && !punchOutAnswer.equalsIgnoreCase("no")) {
-                        System.out.println("Please answer with 'Yes' or 'No': ");
-                        punchOutAnswer = sc.nextLine().trim();
-                    }
-                    if (punchOutAnswer.equalsIgnoreCase("Yes")) {
+                    if (InputToolbox.promptYesNo("Are you sure you want to punch out and end your shift?")) {
                         currentEmployee.punchTimeCard();
                         System.out.printf("%s punched out. Total hours this week: %.1f%n",
                                 currentEmployee.getName(), currentEmployee.getHoursWorked());
