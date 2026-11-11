@@ -197,43 +197,44 @@ public class Main {
                 case "d":
                     String roomNumber = InputToolbox.promptString(
                             "\nPlease enter the room number to check in (e.g. 100): ");
-                    for (Room room : rooms) {
-                        if (room.getRoomName().equals(roomNumber)) {
-                            //? checkIn() runs & tries to check the guest in. Then the if looks at what it handed back.
-                            //? true takes the first branch, and false takes the else.
-                            if (room.checkIn()) {
-                                System.out.println("\nChecked in to room " + roomNumber + ".");
-                            } else {
-                                System.out.println("\nRoom " + roomNumber + " isn't available.");
-                            }
-                        }
+                    //? Looks through the list for a room with this number and hands back that Room
+                    //? or null if there's no match.
+                    Room room = findRoom(rooms, roomNumber);
+                    if (room == null) {
+                        System.out.println("\nThere is no room " + roomNumber + ".");
+                    } else if (room.checkIn()) {
+                        System.out.println("\nChecked in to room " + roomNumber + ".");
+                    } else {
+                        System.out.println("\nRoom " + roomNumber + " isn't available.");
                     }
                     break;
                 case "e":
                     roomNumber = InputToolbox.promptString(
                             "\nPlease enter the room number to check out (e.g. 100): ");
-                    for (Room room : rooms) {
-                        if (room.getRoomName().equals(roomNumber)) {
-                            if (room.checkOut()) {
-                                System.out.println("\nChecked out of room " + roomNumber + ".");
-                            } else {
-                                System.out.println("\nRoom " + roomNumber + " is not occupied.");
-                            }
-                        }
+                    //? Looks through the list for a room with this number and hands back that Room
+                    //? or null if there's no match.
+                    room = findRoom(rooms, roomNumber);
+                    if (room == null) {
+                        System.out.println("There is no room " + roomNumber + ".");
+                    } else if (room.checkOut()) {
+                        System.out.println("\nChecked out of room " + roomNumber + ".");
+                    } else {
+                        System.out.println("\nRoom " + roomNumber + " is not occupied.");
                     }
                     break;
                 case "f":
                     roomNumber = InputToolbox.promptString(
                             "\nPlease enter the room number to clean (e.g. 100): ");
-                    for (Room room : rooms) {
-                        if (room.getRoomName().equals(roomNumber)) {
-                            if (room.cleanRoom()) {
-                                System.out.println("\nRoom " + roomNumber + " is cleaned.");
-                            } else {
-                                System.out.println("\nRoom " + roomNumber +
-                                        " is occupied and cannot be cleaned at this time.");
-                            }
-                        }
+                    //? Looks through the list for a room with this number and hands back that Room
+                    //? or null if there's no match.
+                    room = findRoom(rooms, roomNumber);
+                    if (room == null) {
+                        System.out.println("There is no room " + roomNumber + ".");
+                    } else if (room.cleanRoom()) {
+                        System.out.println("\nRoom " + roomNumber + " is cleaned.");
+                    } else {
+                        System.out.println("\nRoom " + roomNumber +
+                                " is occupied or already clean cannot be cleaned at this time.");
                     }
                     break;
                 case "g":
@@ -276,5 +277,16 @@ public class Main {
             }
         }
     }
+
+    //? Looks through the list for a room with this number & hands back that Room or null if there's no match.
+    public static Room findRoom(ArrayList<Room> rooms, String roomNumber) {
+        for (Room room : rooms) {
+            if (room.getRoomName().equals(roomNumber)) {
+                return room;
+            }
+        }
+        return null;
+    }
+
 }
 
